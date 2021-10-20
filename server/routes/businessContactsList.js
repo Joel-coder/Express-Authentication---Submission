@@ -28,11 +28,11 @@ router.get("/add", (req, res, next) => {
   });
 });
 /* Processing the add Page */
-router.get("/add", (req, res, next) => {
+router.post("/add", (req, res, next) => {
   let newContact = ContactsList({
-    contact_name: req.body.contact_name,
-    contact_number: req.body.contact_number,
-    email: req.body.body.email,
+    "contact_name": req.body.contact_name,
+    "contact_number": req.body.contact_number,
+    "email": req.body.email
   });
 
   ContactsList.create(newContact, (err, newContact) => {
@@ -67,10 +67,10 @@ router.post("/edit/:id", (req, res, next) => {
   let id = req.params.id;
 
   let updateContact = ContactsList({
-    _id: id,
-    contact_name: req.body.contact_name,
-    contact_number: req.body.contact_number,
-    email: req.body.body.email,
+    "_id": id,
+    "contact_name": req.body.contact_name,
+    "contact_number": req.body.contact_number,
+    "email": req.body.body.email,
   });
 
   ContactsList.updateOne({ _id: id }, updateContact, (err) => {
@@ -78,7 +78,9 @@ router.post("/edit/:id", (req, res, next) => {
       console.log(err);
       res.end(err);
     } else {
+      console.log(updateContact)
       res.redirect("/contactInfo");
+      
     }
   });
 });

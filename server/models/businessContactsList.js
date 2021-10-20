@@ -9,3 +9,5 @@ let contactInfoModel = mongoose.Schema(
 );
 
 module.exports = mongoose.model("Contact_Info", contactInfoModel);
+
+//db.contact_info.find()

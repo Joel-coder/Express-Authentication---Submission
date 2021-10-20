@@ -19,20 +19,17 @@
     <td class="text-center"><%=businessContactsList[count].contact_name %></td>
     <td class="text-center"><%=businessContactsList[count].contact_number %></td>
     <td class="text-center"><%=businessContactsList[count].email %></td>
-    <td class="text-center"><a href="/contactInfo/edit/<%= businessContactsList[count]._id %>" class="btn btn-primary"><i class="bi bi-pen"></i> Edit</a></td>
+    <td class="text-center"><a href="/contactInfo/edit/<%= businessContactsList[count].__id %>" class="btn btn-primary"><i class="bi bi-pen"></i> Edit</a></td>
     <td class="text-center"><a href="/contactInfo/delete/<%= businessContactsList[count]._id %>" class="btn btn-primary"><i class="bi bi-dash"></i>Delete</a></td>
 </tr>
     <%}%>
 </table>
 
-<a href="" class="btn btn-primary"><i class="bi bi-plus"></i> Add contact info</a>
+<a href="/contactInfo/add" class="btn btn-primary"><i class="bi bi-plus"></i> Add contact info</a>
 </div>
 </main>
 <%- include ../partials/bottom_nav.ejs %>  
 
 <%- include ../partials/footer.ejs %>
   
-
-
-
 
