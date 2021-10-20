@@ -36,3 +36,6 @@
 .href-custom {
   color: #5900fe !important;
 }
+td {
+  border-radius: 16px;
+}
