@@ -40,16 +40,59 @@ router.get("/add", (req, res, next) => {
       console.log(err);
       res.end(err);
     } else {
-      res.redirect("/businessContactsList");
+      res.redirect("/contactInfo");
     }
   });
 });
 
 /*Update operation*/
-router.get("/edit/:id", (req, res, next) => {});
+router.get("/edit/:id", (req, res, next) => {
+  let id = req.params.id;
+
+  ContactsList.findById(id, (err, contactToEdit) => {
+    if (err) {
+      console.log(err);
+      res.end(err);
+    } else {
+      res.render("businessContactDetails/edit", {
+        title: "Edit Contact Information",
+        contactInfo: contactToEdit,
+      });
+    }
+  });
+});
 
 /* Processing the Update Page */
-router.post("/edit/:id", (req, res, next) => {});
+router.post("/edit/:id", (req, res, next) => {
+  let id = req.params.id;
+
+  let updateContact = ContactsList({
+    _id: id,
+    contact_name: req.body.contact_name,
+    contact_number: req.body.contact_number,
+    email: req.body.body.email,
+  });
+
+  ContactsList.updateOne({ _id: id }, updateContact, (err) => {
+    if (err) {
+      console.log(err);
+      res.end(err);
+    } else {
+      res.redirect("/contactInfo");
+    }
+  });
+});
 
 /*delete operation*/
-router.get("/delete/:id", (req, res, next) => {});
+router.get("/delete/:id", (req, res, next) => {
+  let id = req.params.id;
+  ContactsList.remove({ _id: id }, (err) => {
+    if (err) {
+      console.log(err);
+      res.end(err);
+    } else {
+      // refresh the book list
+      res.redirect("/contactInfo");
+    }
+  });
+});
