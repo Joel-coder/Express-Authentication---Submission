@@ -5,11 +5,12 @@
 
   <!-- Main Content -->
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">Cras justo odio</li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Morbi leo risus</li>
-    <li class="list-group-item">Porta ac consectetur ac</li>
-    <li class="list-group-item">Vestibulum at eros</li>
+    
+    <% for(let count = 0; count < businessContactsList.length; count++) {%>
+    <li class="list-group-item"><%=businessContactsList[count].contact_name %></li>
+    <li class="list-group-item"><%=businessContactsList[count].contact_number %></li>
+    <li class="list-group-item"><%=businessContactsList[count].email %></li>
+    <%}%>
   </ul>
 <%- include partials/bottom_nav.ejs %>  
 
