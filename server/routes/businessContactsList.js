@@ -45,18 +45,18 @@ router.post("/add", (req, res, next) => {
   });
 });
 
-/*Update operation*/
+/* display Update operation*/
 router.get("/edit/:id", (req, res, next) => {
   let id = req.params.id;
 
-  ContactsList.findById(id, (err, contactToEdit) => {
+  ContactsList.findById(id, (err,  businessContactsList) => {
     if (err) {
       console.log(err);
       res.end(err);
     } else {
       res.render("businessContactDetails/edit", {
         title: "Edit Contact Information",
-        contactInfo: contactToEdit,
+        businessContactsList:  businessContactsList,
       });
     }
   });
@@ -70,7 +70,7 @@ router.post("/edit/:id", (req, res, next) => {
     "_id": id,
     "contact_name": req.body.contact_name,
     "contact_number": req.body.contact_number,
-    "email": req.body.body.email,
+    "email": req.body.email
   });
 
   ContactsList.updateOne({ _id: id }, updateContact, (err) => {
