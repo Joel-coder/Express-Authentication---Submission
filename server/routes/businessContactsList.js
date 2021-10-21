@@ -49,14 +49,14 @@ router.post("/add", (req, res, next) => {
 router.get("/edit/:id", (req, res, next) => {
   let id = req.params.id;
 
-  ContactsList.findById(id, (err,  businessContactsList) => {
+  ContactsList.findById(id, (err,  contactInfo) => {
     if (err) {
       console.log(err);
       res.end(err);
     } else {
       res.render("businessContactDetails/edit", {
         title: "Edit Contact Information",
-        businessContactsList:  businessContactsList,
+        contactInfo:  contactInfo,
       });
     }
   });
