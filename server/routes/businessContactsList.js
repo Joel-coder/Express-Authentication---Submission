@@ -4,97 +4,25 @@ let mongoose = require("mongoose");
 
 let ContactsList = require("../models/businessContactsList");
 
+let listController = require("../controller/businessContactsList")
 /* Read operation */
 
-router.get("/", (req, res, next) => {
-  ContactsList.find((err, businessContactsList) => {
-    if (err) {
-      return console.error(err);
-    } else {
-      console.log(businessContactsList);
-      res.render("businessContactDetails/contactInfo", {
-        title: "Contact Information",
-        businessContactsList: businessContactsList,
-      });
-    }
-  });
-});
-module.exports = router;
+router.get("/", listController.displayContactList);
+
 
 /*Create operation*/
-router.get("/add", (req, res, next) => {
-  res.render("businessContactDetails/add", {
-    title: "Add contact",
-  });
-});
+router.get("/add", listController.displayAddList);
 /* Processing the add Page */
-router.post("/add", (req, res, next) => {
-  let newContact = ContactsList({
-    "contact_name": req.body.contact_name,
-    "contact_number": req.body.contact_number,
-    "email": req.body.email
-  });
-
-  ContactsList.create(newContact, (err, newContact) => {
-    if (err) {
-      console.log(err);
-      res.end(err);
-    } else {
-      res.redirect("/contactInfo");
-    }
-  });
-});
+router.post("/add", listController.processAddList);
 
 /* display Update operation*/
-router.get("/edit/:id", (req, res, next) => {
-  let id = req.params.id;
-
-  ContactsList.findById(id, (err,  contactInfo) => {
-    if (err) {
-      console.log(err);
-      res.end(err);
-    } else {
-      res.render("businessContactDetails/edit", {
-        title: "Edit Contact Information",
-        contactInfo:  contactInfo,
-      });
-    }
-  });
-});
+router.get("/edit/:id", listController.displayUpdateList );
 
 /* Processing the Update Page */
-router.post("/edit/:id", (req, res, next) => {
-  let id = req.params.id;
-
-  let updateContact = ContactsList({
-    "_id": id,
-    "contact_name": req.body.contact_name,
-    "contact_number": req.body.contact_number,
-    "email": req.body.email
-  });
-
-  ContactsList.updateOne({ _id: id }, updateContact, (err) => {
-    if (err) {
-      console.log(err);
-      res.end(err);
-    } else {
-      console.log(updateContact)
-      res.redirect("/contactInfo");
-      
-    }
-  });
-});
+router.post("/edit/:id", listController.processUpdateList);
 
 /*delete operation*/
-router.get("/delete/:id", (req, res, next) => {
-  let id = req.params.id;
-  ContactsList.remove({ _id: id }, (err) => {
-    if (err) {
-      console.log(err);
-      res.end(err);
-    } else {
-      // refresh the book list
-      res.redirect("/contactInfo");
-    }
-  });
-});
+router.get("/delete/:id", listController.processDeleteList);
+
+
+module.exports = router;
