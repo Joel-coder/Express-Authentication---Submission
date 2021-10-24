@@ -36,3 +36,8 @@
 .href-custom {
   color: #5900fe !important;
 }
+
+.a-register,
+.a-register:hover {
+  color: #5900fe;
+}
