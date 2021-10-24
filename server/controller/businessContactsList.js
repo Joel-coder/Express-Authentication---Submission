@@ -15,6 +15,7 @@ module.exports.displayContactList = (req, res, next) => {
       res.render("businessContactDetails/contactInfo", {
         title: "Contact Information",
         businessContactsList: businessContactsList,
+        displayName: req.user ? req.user.displayName : "",
       });
     }
   });
@@ -23,6 +24,7 @@ module.exports.displayContactList = (req, res, next) => {
 module.exports.displayAddList = (req, res, next) => {
   res.render("businessContactDetails/add", {
     title: "Add contact",
+    displayName: req.user ? req.user.displayName : "",
   });
 };
 
@@ -54,6 +56,7 @@ module.exports.displayUpdateList = (req, res, next) => {
       res.render("businessContactDetails/edit", {
         title: "Edit Contact Information",
         contactInfo: contactInfo,
+        displayName: req.user ? req.user.displayName : "",
       });
     }
   });
