@@ -2,11 +2,13 @@ let express = require("express");
 let router = express.Router();
 let mongoose = require("mongoose");
 let passport = require("passport");
-
+let bcrypt = require("bcrypt");
 let jwt = require("jsonwebtoken");
 let DB = require("../config/db");
+
 //create the User Model instance
 let userModel = require("../models/user");
+const app = require("../config/app");
 let User = userModel.User;
 
 module.exports.displayHomePage = (req, res, next) => {
@@ -113,10 +115,10 @@ module.exports.displayRegisterPage = (req, res, next) => {
 };
 
 module.exports.processRegisterPage = (req, res, next) => {
-  // instantiate a user object
+  // fecting the information from the
   let newUser = new User({
     username: req.body.username,
-    //password: req.body.password
+    // password: req.body.password,
     email: req.body.email,
     displayName: req.body.displayName,
   });

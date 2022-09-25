@@ -6,15 +6,15 @@ let cookieParser = require("cookie-parser");
 let logger = require("morgan");
 
 // modules for authentication
-let session = require("express-session");
+let session = require("express-session"); //Persist our user across different pages sessions is needed
 let passport = require("passport");
 
 let passportJWT = require("passport-jwt");
 let JWTStrategy = passportJWT.Strategy;
 let ExtractJWT = passportJWT.ExtractJwt;
 
-let passportLocal = require("passport-local");
-let localStrategy = passportLocal.Strategy;
+//let passportLocal = require("passport-local"); //Strategy to use user and password to
+//let localStrategy = passportLocal.Strategy;
 let flash = require("connect-flash");
 
 //database setup
@@ -52,7 +52,7 @@ app.use(express.static(path.join(__dirname, "../../node_modules")));
 //Setup express session
 app.use(
   session({
-    secret: "someSecret",
+    secret: process.env.Secret,
     saveUninitialized: false,
     resave: false,
   })
@@ -76,7 +76,7 @@ passport.use(User.createStrategy());
 
 //serialize and deserialize the user info
 
-passport.serializeUser(User.serializeUser());
+passport.serializeUser(User.serializeUser()); //store user inside of the session
 passport.deserializeUser(User.deserializeUser());
 
 let jwtOptions = {};
@@ -84,6 +84,7 @@ jwtOptions.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = DB.Secret;
 
 let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
+  console.log(jwtOptions);
   User.findById(jwt_payload.id)
     .then((user) => {
       return done(null, user);
